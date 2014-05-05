@@ -50,6 +50,7 @@ function validateConfig() {
  */
 
 function Upload(file, opts) {
+  if (!file) return; // User cancelled file selection.
   if (!(this instanceof Upload)) return new Upload(file, opts);
   opts = opts || {};
   if (!opts.protocol) opts.protocol = window.location.protocol;
@@ -81,6 +82,8 @@ Emitter(Upload.prototype);
  */
 
 Upload.prototype.end = function(fn){
+  if (!this.file) return; // User cancelled file selection.
+
   var self = this;
   fn = fn || function(){};
 
